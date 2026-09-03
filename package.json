@@ -1,0 +1,29 @@
+{
+  "name": "schwaerzwerk",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "app": "npm run app:build && npm run app:serve",
+    "app:install": "podman run --rm -v $PWD:/app:Z -w /app $SW_NODE_IMAGE sh -c 'npm i -g pnpm@10 >/dev/null 2>&1 && pnpm install'",
+    "app:build": "podman run --rm -v $PWD:/app:Z -w /app ${SW_NODE_IMAGE:-docker.io/library/node:24-bookworm-slim} sh -c 'npm i -g pnpm@10 >/dev/null 2>&1 && pnpm install --frozen-lockfile >/dev/null 2>&1 && pnpm exec vite build'",
+    "app:serve": "podman rm -f sw-serve 2>/dev/null; podman run -d --network host -e PORT=3000 --name sw-serve -v $PWD:/app:Z -w /app ${SW_NODE_IMAGE:-docker.io/library/node:24-bookworm-slim} node serve.mjs && echo 'app on http://localhost:3000'",
+    "app:stop": "podman rm -f sw-serve",
+    "check": "podman run --rm -v $PWD:/app:Z -v ${PDF_DIR:-$HOME/Downloads}:/pdf:ro,Z -w /app ${SW_NODE_IMAGE:-docker.io/library/node:24-bookworm-slim} sh -c 'node tools/check.mjs /pdf/*.pdf'",
+    "shot": "mkdir -p /tmp/sw-shots && chmod 777 /tmp/sw-shots && rm -f /tmp/sw-shots/*.png && podman run --rm --network host -v $PWD/tools/shot.mjs:/home/pptruser/shot.mjs:ro,Z -v $PDF:/in.pdf:ro,Z -v /tmp/sw-shots:/shots:Z -e PDF=/in.pdf -w /home/pptruser ghcr.io/puppeteer/puppeteer:latest node shot.mjs"
+  },
+  "dependencies": {
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^5.4.149"
+  },
+  "devDependencies": {
+    "vite": "^7.3.0",
+    "vite-plugin-static-copy": "^2.2.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild"]
+  }
+}

@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.pnpm-store/
+_shots/
+
+# never commit real statements, this repo is public
+*.pdf
+!src/assets/*.pdf

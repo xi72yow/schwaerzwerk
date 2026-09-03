@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Schwärzwerk</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%231c1f25'/%3E%3Crect x='3' y='4' width='10' height='2.4' fill='%23e7e9ec'/%3E%3Crect x='3' y='9.6' width='7' height='2.4' fill='%23e7e9ec'/%3E%3C/svg%3E">
+</head>
+<body>
+<header>
+  <h1>Schwärzwerk</h1>
+  <span class="sub" id="docinfo">kein PDF geladen</span>
+</header>
+
+<div class="wrap">
+  <main class="stage" id="stage">
+    <div class="drop" id="drop">
+      <strong>Kontoauszug hierher ziehen</strong>
+      Mehrere PDFs auf einmal sind möglich. Die Dateien verlassen deinen Rechner nicht.
+      <label class="pick">PDF auswählen<input id="file" type="file" accept="application/pdf" multiple hidden></label>
+    </div>
+    <div class="pages" id="pages"></div>
+  </main>
+
+  <aside class="panel">
+    <div class="group">
+      <span class="label">Profil</span>
+      <select id="profile"></select>
+      <span class="note" id="profileNote">bestimmt, wie Buchungen erkannt werden</span>
+    </div>
+
+    <div class="group">
+      <span class="label">Sichtbar bleiben</span>
+      <textarea id="keywords" rows="4" spellcheck="false"
+                placeholder="e.on energie&#10;k+p verwaltungs"></textarea>
+      <span class="note">ein Stichwort pro Zeile, trifft auf den Buchungstext zu</span>
+      <button class="btn" id="applyKeywords">Vorauswahl anwenden</button>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="group">
+      <span class="label">Seiten</span>
+      <label class="chk"><input type="checkbox" id="skipEmpty" checked> Seiten ohne sichtbare Buchung weglassen</label>
+      <span class="note">die erste Seite bleibt immer erhalten, sie trägt den Kontoinhaber</span>
+    </div>
+
+    <div class="group">
+      <span class="label">Auflösung</span>
+      <div class="seg" id="dpi">
+        <button data-dpi="150" class="on">150 dpi</button>
+        <button data-dpi="200">200</button>
+        <button data-dpi="300">300</button>
+      </div>
+      <span class="note">Seiten werden gerastert, der Text ist danach physisch entfernt</span>
+    </div>
+
+    <div class="actions">
+      <div class="btn-2">
+        <button class="btn" id="allOn" disabled>Alles schwärzen</button>
+        <button class="btn ghost" id="allOff" disabled>Alles zeigen</button>
+      </div>
+      <button class="btn primary" id="download" disabled>Geschwärztes PDF laden</button>
+      <div class="status" id="status"><span class="dot">●</span> warte auf PDF</div>
+      <div class="status plain">Klick auf einen Block schaltet ihn um.</div>
+    </div>
+  </aside>
+</div>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

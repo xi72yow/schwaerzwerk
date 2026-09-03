@@ -1,0 +1,13 @@
+version: 2
+updates:
+  # docker base images aktuell halten
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  # npm/pnpm dependencies aktuell halten
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
