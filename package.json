@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "vite": "^7.3.0",
-    "vite-plugin-static-copy": "^2.2.0"
+    "vite-plugin-static-copy": "^4.1.1"
   },
   "pnpm": {
     "onlyBuiltDependencies": ["esbuild"]
